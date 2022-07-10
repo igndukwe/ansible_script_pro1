@@ -1,0 +1,11 @@
+--- #indicate begining of the play
+
+# we want to run this on all servers
+- hosts: all
+  become: true
+  tasks:
+
+# this is a descreption of what this play does
+  - name: install apache2 package
+    apt: # the module we want to run is apt
+      name: apache2 # the name of the pkg we want to install apache2
