@@ -1,0 +1,23 @@
+--- # indicate begining of the play
+
+# run this on all servers
+- hosts: all
+  become: true
+  tasks:
+
+# 1st play
+  - name: update repository index # play descreption
+    apt: # module to run is apt
+      update_cache: yes # update the server
+
+# 2nd play
+  - name: install apache2 package # play descreption
+    apt: # module to run is apt
+      name: apache2 # name of pkg to install apache2
+      state: absent # removes this pkg
+
+# 3rd play
+  - name: add php support for apache # play descreption
+    apt: # the module to run is apt
+      name: libapache2-mod-php # name of the pkg to install apache2
+      state: absent # removes this pkg
