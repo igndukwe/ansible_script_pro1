@@ -9,15 +9,38 @@
   - name: update repository index # play descreption
     apt: # module to run is apt
       update_cache: yes # update the server
+    when: ansible_distribution in ["Ubuntu", "Debian"]
 
 # 2nd play
   - name: install apache2 package # play descreption
     apt: # module to run is apt
       name: apache2 # name of pkg to install apache2
       state: latest # latest tag
+    when: ansible_distribution in ["Ubuntu", "Debian"]
 
 # 3rd play
   - name: add php support for apache # play descreption
     apt: # the module to run is apt
       name: libapache2-mod-php # name of the pkg to install apache2
       state: latest # the latest tag
+    when: ansible_distribution in ["Ubuntu", "Debian"]
+
+# 4th play
+  - name: update repository index # play descreption
+    dnf: # module to run is dnf
+      update_cache: yes # update the server
+    when: ansible_distribution == "CentOS"
+
+# 5th play
+  - name: install apache2 package # play descreption
+    dnf: # module to run is dnf
+      name: httpd # name of pkg to install apache2
+      state: latest # latest tag
+    when: ansible_distribution == "CentOS"
+
+# 6th play
+  - name: add php support for apache # play descreption
+    dnf: # the module to run is dnf
+      name: php # name of the pkg to install apache2
+      state: latest # the latest tag
+    when: ansible_distribution == "CentOS"
