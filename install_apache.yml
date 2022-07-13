@@ -7,31 +7,21 @@
   tasks:
 
 # 1st play
-  - name: update repository index for Ubuntu and Debian
-    apt: # module to run is apt
-      update_cache: yes # update the server
-    when: ansible_distribution in ["Ubuntu", "Debian"]
-
-# 2nd play
-  - name: install apache2 and php packages for Ubuntu and Debian
+  - name: install/update apache2/php packages for Ubuntu/Debian
     apt: # module to run is apt
       name: 
         - apache2
         - libapache2-mod-php
       state: latest # latest tag
+      update_cache: yes
     when: ansible_distribution in ["Ubuntu", "Debian"]
 
-# 3th play
-  - name: update repository index for CentOS
-    dnf: 
-      update_cache: yes # update the server
-    when: ansible_distribution == "CentOS"
-
-# 4th play
-  - name: install apache and php packages for CentOS
+# 2th play
+  - name: install/update apache and php packages for CentOS
     dnf:
       name:
         - httpd
         - php
       state: latest
+      update_cache: yes
     when: ansible_distribution == "CentOS"
