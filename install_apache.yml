@@ -7,21 +7,10 @@
   tasks:
 
 # 1st play
-  - name: install/update apache2/php packages for Ubuntu/Debian
-    apt: # module to run is apt
+  - name: install/update apache
+    package:
       name: 
-        - apache2
-        - libapache2-mod-php
-      state: latest # latest tag
-      update_cache: yes
-    when: ansible_distribution in ["Ubuntu", "Debian"]
-
-# 2th play
-  - name: install/update apache and php packages for CentOS
-    dnf:
-      name:
-        - httpd
-        - php
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
       state: latest
       update_cache: yes
-    when: ansible_distribution == "CentOS"
