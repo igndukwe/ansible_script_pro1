@@ -1,4 +1,9 @@
-root@45.56.118.119 apache_package=apache2 php_package=libapache2-mod-php
-root@45.79.204.200 apache_package=apache2 php_package=libapache2-mod-php
-root@172.105.150.14 apache_package=apache2 php_package=libapache2-mod-php
-root@45.79.221.103 apache_package=httpd php_package=php
+[web_servers]
+root@45.56.118.119
+root@45.79.204.200
+
+[db_servers]
+root@172.105.150.14
+
+[file_servers]
+root@45.79.221.103

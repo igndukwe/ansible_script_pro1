@@ -1,0 +1,62 @@
+--- # indicate begining of the play
+#Run cmd: ansible-playbook --ask-become-pass site.yml
+
+# run update play on all the group of servers
+- hosts: all
+  become: true
+  pre_tasks:
+
+  #1st play
+  - name: install updates (CentOS)
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+  #2nd play
+  - name: install updates (Ubuntu and Debian)  
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution in ["Ubuntu", "Debian"]
+
+
+# run this play on the web-servers group 
+- hosts: web_servers
+  become: true
+  tasks:
+
+  #3rd play
+  - name: install apache and php (Ubuntu and Debian)
+    apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+
+
+# run this play on the web-servers group
+- hosts: db_servers
+  become: true
+  tasks:
+
+  # 4th play
+  - name: install mariadb package (Ubuntu)
+    apt:
+      name: mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+
+# run this play on the web-servers group
+- hosts: file_servers
+  become: true
+  tasks:
+
+  # 5th play
+  - name: install mariadb package (CentOS)
+    package: # the name of the package is not diff bw CentOS and Ubuntu
+      name: samba
+      state: latest
+
+
