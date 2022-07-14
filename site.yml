@@ -8,13 +8,15 @@
 
   #1st play
   - name: install updates (CentOS)
+    tags: always
     dnf:
       update_only: yes
       update_cache: yes
     when: ansible_distribution == "CentOS"
 
   #2nd play
-  - name: install updates (Ubuntu and Debian)  
+  - name: install updates (Ubuntu and Debian)
+    tags: always
     apt:
       upgrade: dist
       update_cache: yes
@@ -28,6 +30,7 @@
 
   #3rd play
   - name: install apache and php (Ubuntu and Debian)
+    tags: apache2,php,ubuntu,debian
     apt:
       name: 
         - apache2
@@ -42,6 +45,7 @@
 
   # 4th play
   - name: install mariadb package (Ubuntu)
+    tags: ubuntu,db,mariadb
     apt:
       name: mariadb-server
       state: latest
@@ -55,6 +59,7 @@
 
   # 5th play
   - name: install mariadb package (CentOS)
+    tags: samba,centos
     package: # the name of the package is not diff bw CentOS and Ubuntu
       name: samba
       state: latest
